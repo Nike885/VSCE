@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cypress VSCE — React (No Build)</title>
+  <meta name="description" content="Cypress VSCE: Virtual Shadowing & Career Exploration" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%8E%93%3C/text%3E%3C/svg%3E" />
+  <style>
+    :root{
+      --brand:#1e40af; --brand2:#7c3aed; --ink:#0b1020; --ink2:#334155;
+      --card:#ffffffd9; --radius:18px;
+      --shadow:0 10px 30px rgba(2,6,23,.08),0 2px 10px rgba(2,6,23,.06);
+    }
+    *{box-sizing:border-box} html,body{margin:0;padding:0}
+    body{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--ink); line-height:1.6;
+      background: radial-gradient(1000px 600px at 10% -10%, #dbeafe 0%, transparent 55%),
+                 radial-gradient(800px 500px at 110% -20%, #e9d5ff 0%, transparent 60%),
+                 linear-gradient(180deg, #f8fafc 0%, #f1f5f9 60%, #eef2ff 100%);
+    }
+    .container{width:min(1100px, 92vw); margin:0 auto;}
+    header{position:sticky; top:0; z-index:10; backdrop-filter:saturate(140%) blur(8px);
+      background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.6));
+      border-bottom:1px solid rgba(15,23,42,.06);
+    }
+    .nav{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 0}
+    .brand{display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.2px; color:var(--ink)}
+    .brand .logo{width:40px;height:40px; display:grid; place-items:center; border-radius:12px;
+      background:conic-gradient(from 180deg, #1e40af, #7c3aed, #06b6d4, #1e40af); box-shadow: var(--shadow)}
+    .brand .logo span{font-size:22px}
+    .actions{display:flex; gap:10px; flex-wrap:wrap}
+    .btn{display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px; border:1px solid rgba(2,6,23,.08); background:#fff; box-shadow: var(--shadow); color:var(--ink); font-weight:600; text-decoration:none}
+    .btn:hover{transform:translateY(-1px); transition:transform .15s}
+    .btn.primary{background:linear-gradient(135deg, #1e40af, #7c3aed); color:#fff; border-color:transparent}
+    .hero{padding:72px 0 36px}
+    .wrap{display:grid; grid-template-columns: 1.1fr .9fr; gap:28px; align-items:center}
+    .title{font-size: clamp(28px, 4vw, 48px); line-height:1.1; margin:0 0 12px; font-weight:900; letter-spacing:-.3px}
+    .subtitle{font-size: clamp(16px, 2.2vw, 20px); color:var(--ink2); margin:0 0 22px}
+    .heroCard{background:var(--card); border:1px solid rgba(2,6,23,.06); border-radius:var(--radius); padding:22px; box-shadow: var(--shadow)}
+    .badges{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 8px}
+    .badge{padding:6px 10px; border-radius:999px; background:linear-gradient(135deg, #e0e7ff, #f5d0fe); border:1px solid rgba(2,6,23,.06); font-weight:700; font-size:12px; letter-spacing:.3px}
+    section{padding:40px 0}
+    .section-title{font-size:22px; margin:0 0 18px; font-weight:800}
+    .card{background:rgba(255,255,255,.65); border:1px solid rgba(2,6,23,.08); border-radius:var(--radius); box-shadow: var(--shadow)}
+    .schools{display:grid; grid-template-columns: repeat( auto-fill, minmax(220px, 1fr)); gap:16px}
+    .school{padding:16px; display:flex; flex-direction:column; gap:10px}
+    .school h5{margin:2px 0 0; font-size:16px}
+    .school .meta{color:var(--ink2); font-size:14px}
+    .pill{display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:999px; background:#fff; border:1px solid rgba(2,6,23,.08); font-weight:700; font-size:12px}
+    .school .go{margin-top:auto; display:inline-flex; align-items:center; gap:8px; font-weight:700; text-decoration:none; color:var(--brand)}
+    .cta{padding:46px; text-align:center; background: linear-gradient(135deg, #f5f3ff, #eff6ff); border:1px solid rgba(2,6,23,.06)}
+    footer{padding:40px 0 60px; color:#475569}
+    @media (max-width: 900px){ .wrap{grid-template-columns:1fr} }
+  </style>
+  <!-- React UMD + Babel Standalone (for JSX in the browser) -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"><span>🎓</span></div>
+        <div>
+          <div style="font-size:18px">Cypress VSCE</div>
+          <div style="font-size:12px; color:var(--ink2); font-weight:600">Virtual Shadowing & Career Exploration</div>
+        </div>
+      </div>
+      <div class="actions">
+        <a class="btn primary" href="#" target="_blank" rel="noopener">Follow on Instagram</a>
+        <a class="btn" href="mailto:vsce.cypress@example.com">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const SCHOOLS = [
+      { name: 'Cy‑Ranch', handle: '@cy_ranch_vsce', url: '#' },
+      { name: 'Cy‑Woods', handle: '@cy_woods_vsce', url: '#' },
+      { name: 'Cy‑Fair', handle: '@cy_fair_vsce', url: '#' },
+      { name: 'Bridgeland', handle: '@bridgeland_vsce', url: '#' },
+      { name: 'Langham Creek', handle: '@langham_creek_vsce', url: '#' },
+      { name: 'Cy‑Falls', handle: '@cy_falls_vsce', url: '#' },
+    ];
+
+    function SchoolCard({ name, handle, url }){
+      const href = url && url !== '#' ? url : null;
+      return (
+        <article className="card school">
+          <span className="pill">{name}</span>
+          <h5>{handle}</h5>
+          <div className="meta">{name} HS</div>
+          {href ? (
+            <a className="go" href={href} target="_blank" rel="noopener noreferrer">Open Instagram →</a>
+          ) : (
+            <span className="go" style={{opacity:.6}}>Coming soon</span>
+          )}
+        </article>
+      );
+    }
+
+    function App(){
+      return (
+        <main>
+          <section className="hero">
+            <div className="container wrap">
+              <div>
+                <h1 className="title">Unlock your future with Virtual Shadowing</h1>
+                <p className="subtitle">Real talk about majors and careers, Q&amp;A with industry insiders, and student‑to‑student insights. Connect • Learn • Succeed.</p>
+                <div className="badges">
+                  <span className="badge">Student‑Led</span>
+                  <span className="badge">Multi‑School</span>
+                  <span className="badge">Career Exploration</span>
+                </div>
+              </div>
+              <div className="heroCard">
+                <strong>What we do</strong>
+                <ul style={{margin:'10px 0 0', paddingLeft:18, color:'var(--ink2)'}}>
+                  <li>Host short virtual sessions where you can shadow majors and careers.</li>
+                  <li>Bring current students &amp; recent grads to share tips and answer questions.</li>
+                  <li>Connect schools across Cypress with a simple hub of Instagram links.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <div className="container">
+              <h2 className="section-title">Schools Directory</h2>
+              <p style={{margin:'0 0 16px', color:'var(--ink2)'}}>Tap a card to visit the Instagram. If you don’t see yours yet, it’s coming soon.</p>
+              <div className="schools">
+                {SCHOOLS.map(s => <SchoolCard key={s.name} {...s} />)}
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <div className="container card cta">
+              <h3 style={{margin:'0 0 8px', fontSize:22}}>Want your school on VSCE?</h3>
+              <p style={{margin:'0 0 16px', color:'var(--ink2)'}}>DM the main account with your school name, or email us. We’ll get you linked up.</p>
+              <div style={{display:'flex', gap:12, justifyContent:'center', flexWrap:'wrap'}}>
+                <a className="btn primary" href="#" target="_blank" rel="noopener">DM @cypress_vsce</a>
+                <a className="btn" href="mailto:vsce.cypress@example.com">Email Us</a>
+              </div>
+            </div>
+          </section>
+
+          <footer>
+            <div className="container" style={{display:'flex', justifyContent:'space-between', alignItems:'center', gap:10, flexWrap:'wrap'}}>
+              <small>© {new Date().getFullYear()} Cypress VSCE • Connect. Learn. Succeed.</small>
+              <small>Site by your crew — built with React (no build).</small>
+            </div>
+          </footer>
+        </main>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
